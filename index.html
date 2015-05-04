@@ -1,0 +1,47 @@
+<html ng-app="kitmods">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link rel="stylesheet" href="/res/lib/css/bootstrap.css" />
+  <link rel="stylesheet" href="/res/style.css">
+  
+  <title>KIT Modulhandbuch Master Informatik</title>
+</head>
+<body>
+  <nav class="navbar navbar-default" ng-controller="HeaderController">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">KIT Modulhandbuch Master Informatik</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li ng-class="{'active': isRoute('/')}"><a href="/">Home</a></li>
+          <li ng-class="{'active': isRoute('/plan')}"><a href="/plan">Plan</a></li>
+        </ul>
+	<ul class="nav navbar-nav pull-right">
+          <li ng-show="isRouteOrBelow('/plan')" ng-class="{'active': isRoute('/plan/download')}"><a href="/plan/download">Up-/Download</a></li>
+	</ul>
+      </div>
+    </div>
+  </nav>
+ 
+  <div ng-view></div>
+
+  <script src="/res/lib/js/jquery-1.11.1.js"></script>
+  <script src="/res/lib/js/bootstrap.js"></script>
+  <script src="/res/lib/js/angular.js"></script>
+  <script src="/res/lib/js/angular-resource.js"></script>
+  <script src="/res/lib/js/angular-route.js"></script>
+  <script src="/res/lib/js/ui-bootstrap.js"></script>
+  <script src="/res/lib/js/ngStorage.js"></script>
+  <script src="/res/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+.interesting-false {
+	color: grey;
+}
+
+.in-other-module-true {
+	text-decoration: line-through;
+	color: grey;
+}

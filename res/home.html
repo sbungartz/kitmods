@@ -1,0 +1,19 @@
+<div class="container">
+  <ul>
+  	<li ng-repeat="specialization in handbook.specializations | orderDictBy:specIdAsInt" ng-init="specIdx = $index; specToggleId = 'module-list-' + specIdx">
+  	  {{specialization.$key}}: {{specialization.name}}
+  	  <button class="btn btn-default btn-xs" data-toggle="collapse" data-target="#{{specToggleId}}">{{specialization.moduleIds.length}}</button>
+  	  <ul class="collapse" id="{{specToggleId}}">
+  	  	<li ng-repeat="moduleId in specialization.moduleIds" ng-init="modIdx = $index; modToggleId = 'course-list-' + specIdx + '-' + modIdx; module = handbook.modules[moduleId]">
+  	  	  {{module.name}} [{{moduleId}}] ({{module.ects}})
+  	  	  <button class="btn btn-default btn-xs" data-toggle="collapse" data-target="#{{modToggleId}}">{{module.courseIds.length}}</button>
+  	  	  <ul class="collapse" id="{{modToggleId}}">
+  	  	    <li ng-repeat="courseId in module.courseIds" ng-init="course = handbook.courses[courseId]">
+  	  	      {{course.name}} [{{courseId}}] ({{course.ects}})
+  	  	    </li>
+  	  	  </ul>
+  	  	</li>
+  	  </ul>
+  	</li>
+  </ul>
+</div>

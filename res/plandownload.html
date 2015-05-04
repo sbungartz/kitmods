@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h1>Download current plan</h1>
+      <span class="help-block">
+        Download your current plan by copying the following code and saving it in a file.
+      </span>
+      <a ng-href="{{planJsonDownloadUrl}}" download="masterplan.json">Download</a>
+      <pre>{{planJson}}</pre>
+    </div>
+    <div class="col-md-6">
+      <h1>Upload other plan</h1>
+      <form>
+        <div class="form-group">
+          <span id="helpUploadPlan" class="help-block">
+            Replace your current plan by pasting another one in the field below and clicking <em>Upload</em>.
+          </span>
+          <label class="sr-only" for="newPlanJson">JSON for new plan</label>
+          <textarea class="form-control" rows="6" id="newPlanJson" aria-describedby="helpUploadPlan" ng-model="newPlanJson"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-click="uploadPlanJson()">Upload</button>
+      </form>
+    </div>
+  </div>
+</div>

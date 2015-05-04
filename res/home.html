@@ -1,4 +1,10 @@
 <div class="container">
+  <div class="jumbotron">
+    <h1>KIT Modulhandbuch Master Informatik <small>Work In Progress</small></h1>
+    Mit diesem Tool sollst du später einmal deinen Master-Studiengang in Informatik am KIT leichter planen können.
+    Zur Zeit befindet es sich in der Entwicklung und ist weder sehr ausgereift noch sehr stabil.
+    Wenn du willst, kannst du unter <a href="#/plan">Plan</a> anschauen, was schon funktioniert.
+  </div>
   <ul>
   	<li ng-repeat="specialization in handbook.specializations | orderDictBy:specIdAsInt" ng-init="specIdx = $index; specToggleId = 'module-list-' + specIdx">
   	  {{specialization.$key}}: {{specialization.name}}

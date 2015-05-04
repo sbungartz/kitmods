@@ -1,17 +1,17 @@
 var module = angular.module('kitmods', ['ui.bootstrap', 'ngRoute', 'ngStorage']);
 
 module.config(['$routeProvider', '$locationProvider', '$compileProvider', function($routeProvider, $locationProvider, $compileProvider) {
-  $locationProvider.html5Mode(true); // Remove the '#' from URL.
+  //$locationProvider.html5Mode(true); // Remove the '#' from URL.
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|blob):/);
   $routeProvider.when('/', {
     controller: 'HomeController',
-    templateUrl: '/res/home.html'
+    templateUrl: 'res/home.html'
   }).when('/plan', {
     controller: 'PlanController',
-  templateUrl: '/res/plan.html'
+  templateUrl: 'res/plan.html'
   }).when('/plan/download', {
     controller: 'PlanDownloadController',
-  templateUrl: '/res/plandownload.html'
+  templateUrl: 'res/plandownload.html'
   }).otherwise({
     redirectTo: '/'
   });
@@ -24,7 +24,7 @@ module.factory('handbook', ['$http', function($http) {
   handbook.modules = {};
   handbook.specializations = {};
 
-  $http.get('api/handbook').
+  $http.get('data/handbook.json').
   success(function(data, status, headers, config) {
     handbook.courses = data.courses;
     handbook.modules = data.modules;

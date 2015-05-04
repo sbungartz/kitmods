@@ -3,9 +3,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <base href="/kitmods/">
   
-  <link rel="stylesheet" href="/res/lib/css/bootstrap.css" />
-  <link rel="stylesheet" href="/res/style.css">
+  <link rel="stylesheet" href="res/lib/css/bootstrap.css" />
+  <link rel="stylesheet" href="res/style.css">
   
   <title>KIT Modulhandbuch Master Informatik</title>
 </head>
@@ -23,11 +25,11 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-navbar-collapse">
         <ul class="nav navbar-nav">
-          <li ng-class="{'active': isRoute('/')}"><a href="/">Home</a></li>
-          <li ng-class="{'active': isRoute('/plan')}"><a href="/plan">Plan</a></li>
+          <li ng-class="{'active': isRoute('/')}"><a href="#/">Home</a></li>
+          <li ng-class="{'active': isRoute('/plan')}"><a href="#/plan">Plan</a></li>
         </ul>
 	<ul class="nav navbar-nav pull-right">
-          <li ng-show="isRouteOrBelow('/plan')" ng-class="{'active': isRoute('/plan/download')}"><a href="/plan/download">Up-/Download</a></li>
+          <li ng-show="isRouteOrBelow('/plan')" ng-class="{'active': isRoute('/plan/download')}"><a href="#/plan/download">Up-/Download</a></li>
 	</ul>
       </div>
     </div>
@@ -35,13 +37,13 @@
  
   <div ng-view></div>
 
-  <script src="/res/lib/js/jquery-1.11.1.js"></script>
-  <script src="/res/lib/js/bootstrap.js"></script>
-  <script src="/res/lib/js/angular.js"></script>
-  <script src="/res/lib/js/angular-resource.js"></script>
-  <script src="/res/lib/js/angular-route.js"></script>
-  <script src="/res/lib/js/ui-bootstrap.js"></script>
-  <script src="/res/lib/js/ngStorage.js"></script>
-  <script src="/res/main.js"></script>
+  <script src="res/lib/js/jquery-1.11.1.js"></script>
+  <script src="res/lib/js/bootstrap.js"></script>
+  <script src="res/lib/js/angular.js"></script>
+  <script src="res/lib/js/angular-resource.js"></script>
+  <script src="res/lib/js/angular-route.js"></script>
+  <script src="res/lib/js/ui-bootstrap.js"></script>
+  <script src="res/lib/js/ngStorage.js"></script>
+  <script src="res/main.js"></script>
 </body>
 </html>

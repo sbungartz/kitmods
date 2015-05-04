@@ -42,7 +42,7 @@
 					<label>
 						<input type="checkbox" id="course-in-module-{{idCourse}}" ng-model="course.inModule" ng-change="courseInModuleChanged(course, module)"/>
 						<span class="interesting-{{module.isInteresting}} in-other-module-{{module.inOtherSpecialization}}">
-							{{course.data.name}} [{{course.data.id}}]
+                                                  {{course.data.name}} [<a ng-href="http://www.kithub.de/search?type=vvz&q={{course.data.id}}">{{course.data.id}}</a>]
 						</span>
 					</label>
 				</div>

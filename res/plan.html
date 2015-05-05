@@ -1,107 +1,108 @@
 <div class="container-fluid">
-    <script type="text/ng-template" id="myModalContent.html">
-        <div class="modal-header">
-            <h3 class="modal-title">I'm a modal!</h3>
-        </div>
-		<div class="modal-body" ng-controller="PlanController">
-		  <pre>{{ curInput }}</pre>
-		  <input type="text" ng-model="curInput" typeahead="curCourse as curCourse.name for curCourse in nameWithCourseIdList | filter:$viewValue | limitTo:8" typeahead-editable="false" typeahead-on-select="addNewInterestingCourse($item)" class="form-control">
-		</div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="finishAddInterestingCourse()">OK</button>
-            <button class="btn btn-primary" ng-click="abortAddInterestingCourse()">Cancel</button>
-        </div>
-    </script>
-	
-	
-	<div class="row">
-	<div class="col-md-7">
-	<h1>Module</h1>
-	<div class="panel panel-default"
-		ng-repeat="(moduleId, module) in moduleList"
-		ng-init="idxModule=$index; moduleToggleId=idxModule;">
-		<div class="panel-heading" data-toggle="collapse" data-target="#{{moduleToggleId}}">
-			<div class="pull-right">
-				<span class="badge"
-				      ng-class="{'progress-bar-success': module.ectsState === 'satisfied', 'progress-bar-danger': module.ectsState === 'overflow'}">
-					{{module.chosenEcts}} / {{module.data.ects}}
-				</span>
-			</div>
-			<h3 class="panel-title">{{module.data.name}} [{{module.data.id}}]</h3>
-		</div>
-		<ul class="list-group collapse" id="{{moduleToggleId}}">
-			<li ng-repeat="(courseId, course) in module.courses"
-			    ng-init="idxCourse=$index; idCourse=idxModule + '-' + idxCourse;"
-			    class="list-group-item interesting-{{course.interesting}} in-other-module-{{course.inOtherModule}}"
-			    title="{{course.chosenModule}}">
-				<span class="badge"
-				      ng-class="{'progress-bar-info': course.inModule}">
-					{{course.data.ects}}
-				</span>
-				<div class="checkbox" style="margin:0;">
-					<label>
-						<input type="checkbox" id="course-in-module-{{idCourse}}" ng-model="course.inModule" ng-change="courseInModuleChanged(course, module)"/>
-						<span class="interesting-{{module.isInteresting}} in-other-module-{{module.inOtherSpecialization}}">
-                                                  {{course.data.name}} [<a ng-href="http://www.kithub.de/search?type=vvz&q={{course.data.id}}" target="_blank">{{course.data.id}}</a>]
-						</span>
-					</label>
-				</div>
-			</li>
-		</ul>
-	</div>
+  <script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+      <h3 class="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body" ng-controller="PlanController">
+      <pre>{{ curInput }}</pre>
+      <input type="text" ng-model="curInput" typeahead="curCourse as curCourse.name for curCourse in nameWithCourseIdList | filter:$viewValue | limitTo:8" typeahead-editable="false" typeahead-on-select="addNewInterestingCourse($item)" class="form-control">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="finishAddInterestingCourse()">OK</button>
+      <button class="btn btn-primary" ng-click="abortAddInterestingCourse()">Cancel</button>
+    </div>
+  </script>
 
-	<h1>Lehrveranstaltungen</h1>
-	<ul>
-		<li ng-repeat="courseId in plan.interestingCourses"
-			ng-init="courseIdx = $index">
-			{{handbook.courses[courseId].name}} [{{courseId}}] -
-			<button class="btn btn-default btn-xs"
-				ng-click="rmInterestingCourse(courseId)">
-				<span class="glyphicon glyphicon-trash"></span>
-			</button>
-		</li>
-	</ul>
-	<button class="btn btn-primary" ng-click="beginAddInterestingCourse()">Lehrveranstaltung hinzufügen</button>
-	</div>
-	
-	<div class="col-md-5">
-		<h1>Vertiefungsfächer</h1>
-		<form>
-		<ul class="list-unstyled">
-			<li ng-repeat="vf in overviewSpecializations" ng-init="idxVF = $index; specToggleId = 'module-list-' + idxVF;"
-			    class="interesting-{{vf.isInteresting}}">
-				<div class="checkbox" style="margin:0;">
-					<label>
-						<input type="checkbox"/>
-						<span class="badge"
-						      ng-class="{'progress-bar-info': vf.ectsFromCompleteModules >= 15}">
-							{{vf.ectsFromCompleteModules}}
-							<span ng-show="vf.ectsFromCompleteModules != vf.chosenEcts">
-								({{vf.chosenEcts}})
-							</span>
-						</span> 
-						{{vf.spec.id}}: {{vf.spec.name}}
-					</label>
-				
-					<button class="btn btn-default btn-xs" data-toggle="collapse" data-target="#{{specToggleId}}">{{vf.modules.length}}</button>
-		        	<ul class="list-unstyled collapse" id="{{specToggleId}}">
-					<li ng-repeat="module in vf.modules" ng-init="idxModule = $index">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" id="module-in-spec{{idxVF}}-{{idxCourse}}"
-									       ng-model="module.inSpecialization"
-									       ng-change="moduleInSpecializationChanged(module, vf)" />
-									<span class="badge">{{module.module.ects}}</span>
-									<span class="interesting-{{module.isInteresting}} in-other-module-{{module.inOtherSpecialization}}">
-										{{module.module.name}} [{{module.moduleId}}]
-									</span>
-								</label>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</li>
-		</ul>
-		</form>
-	</div>
+
+  <div class="row">
+    <div class="col-md-7">
+      <h1>Module</h1>
+      <div class="panel panel-default"
+        ng-repeat="(moduleId, module) in moduleList"
+        ng-init="idxModule=$index; moduleToggleId=idxModule;">
+        <div class="panel-heading" data-toggle="collapse" data-target="#{{moduleToggleId}}">
+          <div class="pull-right">
+            <span class="badge"
+              ng-class="{'progress-bar-success': module.ectsState === 'satisfied', 'progress-bar-danger': module.ectsState === 'overflow'}">
+              {{module.chosenEcts}} / {{module.data.ects}}
+            </span>
+          </div>
+          <h3 class="panel-title">{{module.data.name}} [{{module.data.id}}]</h3>
+        </div>
+        <ul class="list-group collapse" id="{{moduleToggleId}}">
+          <li ng-repeat="(courseId, course) in module.courses"
+          ng-init="idxCourse=$index; idCourse=idxModule + '-' + idxCourse;"
+          class="list-group-item interesting-{{course.interesting}} in-other-module-{{course.inOtherModule}}"
+          title="{{course.chosenModule}}">
+          <span class="badge"
+            ng-class="{'progress-bar-info': course.inModule}">
+            {{course.data.ects}}
+          </span>
+          <div class="checkbox" style="margin:0;">
+            <label>
+              <input type="checkbox" id="course-in-module-{{idCourse}}" ng-model="course.inModule" ng-change="courseInModuleChanged(course, module)"/>
+              <span class="interesting-{{module.isInteresting}} in-other-module-{{module.inOtherSpecialization}}">
+                {{course.data.name}} [<a ng-href="http://www.kithub.de/search?type=vvz&q={{course.data.id}}" target="_blank">{{course.data.id}}</a>]
+              </span>
+            </label>
+          </div>
+          </li>
+        </ul>
+      </div>
+
+      <h1>Lehrveranstaltungen</h1>
+      <ul>
+        <li ng-repeat="courseId in plan.interestingCourses"
+        ng-init="courseIdx = $index">
+        {{handbook.courses[courseId].name}} [{{courseId}}] -
+        <button class="btn btn-default btn-xs"
+          ng-click="rmInterestingCourse(courseId)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        </li>
+      </ul>
+      <button class="btn btn-primary" ng-click="beginAddInterestingCourse()">Lehrveranstaltung hinzufügen</button>
+    </div>
+
+    <div class="col-md-5">
+      <h1>Vertiefungsfächer</h1>
+      <form>
+        <ul class="list-unstyled">
+          <li ng-repeat="vf in overviewSpecializations" ng-init="idxVF = $index; specToggleId = 'module-list-' + idxVF;"
+          class="interesting-{{vf.isInteresting}}">
+          <div class="checkbox" style="margin:0;">
+            <label>
+              <input type="checkbox"/>
+              <span class="badge"
+                ng-class="{'progress-bar-info': vf.ectsFromCompleteModules >= 15}">
+                {{vf.ectsFromCompleteModules}}
+                <span ng-show="vf.ectsFromCompleteModules != vf.chosenEcts">
+                  ({{vf.chosenEcts}})
+                </span>
+              </span> 
+              {{vf.spec.id}}: {{vf.spec.name}}
+            </label>
+
+            <button class="btn btn-default btn-xs" data-toggle="collapse" data-target="#{{specToggleId}}">{{vf.modules.length}}</button>
+            <ul class="list-unstyled collapse" id="{{specToggleId}}">
+              <li ng-repeat="module in vf.modules" ng-init="idxModule = $index">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="module-in-spec{{idxVF}}-{{idxCourse}}"
+                  ng-model="module.inSpecialization"
+                  ng-change="moduleInSpecializationChanged(module, vf)" />
+                  <span class="badge">{{module.module.ects}}</span>
+                  <span class="interesting-{{module.isInteresting}} in-other-module-{{module.inOtherSpecialization}}">
+                    {{module.module.name}} [{{module.moduleId}}]
+                  </span>
+                </label>
+              </div>
+              </li>
+            </ul>
+          </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
 </div>

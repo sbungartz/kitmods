@@ -18,6 +18,10 @@
           <label class="sr-only" for="newPlanJson">JSON for new plan</label>
           <textarea class="form-control" rows="6" id="newPlanJson" aria-describedby="helpUploadPlan" ng-model="newPlanJson"></textarea>
         </div>
+        <div class="form-group">
+          <label for="jsonFileUpload">Select a File</label>
+          <input type="file" id="jsonFileUpload">
+        </div>
         <div class="form-group has-{{uploadState}}">
           <button type="submit" class="btn btn-primary" ng-click="uploadPlanJson()">Upload</button>
           <span class="help-block" style="display: inline; margin-left: 4px;">{{uploadFeedbackMessage}}</span>

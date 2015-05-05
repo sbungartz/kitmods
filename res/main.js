@@ -339,5 +339,31 @@ module.controller('PlanDownloadController', function($scope, $log, $localStorage
       $scope.uploadFeedbackMessage = 'Not a valid JSON object.';
     }
   }
+
+  $scope.fileSelected = function(evt) {
+    $scope.$apply(function() {
+      $scope.uploadState = null;
+      $scope.uploadFeedbackMessage = null;
+
+      var file = evt.target.files[0];
+
+      if(file.size > 10000) {
+        $scope.uploadState = 'error';
+        $scope.uploadFeedbackMessage = 'No files above 10 kB supported.';
+      } else {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $scope.$apply(function() {
+            $scope.newPlanJson = e.target.result;
+          });
+        };
+
+        reader.readAsText(file);
+      }
+    });
+  }
+
+  document.getElementById('jsonFileUpload').addEventListener('change', $scope.fileSelected, false);
 });
 

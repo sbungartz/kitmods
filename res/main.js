@@ -195,6 +195,12 @@ module.controller('PlanController', function($scope, $modal, $log, $localStorage
 
       $scope.overviewSpecializations.push(specStats);
     });
+    
+    var totalEcts = 0;
+    $.each(modules, function(moduleId, module) {
+      totalEcts += module.chosenEcts;
+    });
+    $scope.totalEcts = totalEcts;
   }
   $scope.$watch('handbook.courses', updateModuleList);
   $scope.$watch('plan.interestingCourses', updateModuleList);

@@ -195,6 +195,12 @@ module.controller('PlanController', function($scope, $modal, $log, $localStorage
 
       $scope.overviewSpecializations.push(specStats);
     });
+    
+    var totalEcts = 0;
+    $.each(modules, function(moduleId, module) {
+      totalEcts += module.chosenEcts;
+    });
+    $scope.totalEcts = totalEcts;
   }
   $scope.$watch('handbook.courses', updateModuleList);
   $scope.$watch('plan.interestingCourses', updateModuleList);
@@ -314,12 +320,56 @@ module.controller('PlanControllerAddCurseModal', function($scope, $modalInstance
 });
 
 module.controller('PlanDownloadController', function($scope, $log, $localStorage) {
-  $scope.planJson = JSON.stringify($localStorage.plan, null, 4);
-  var blob = new Blob([ $scope.planJson ], { type : 'text/plain' });
-  $scope.planJsonDownloadUrl = window.URL.createObjectURL(blob);
+  function updateDownloadPart() {
+    $scope.planJson = JSON.stringify($localStorage.plan, null, 4);
+    var blob = new Blob([ $scope.planJson ], { type : 'text/plain' });
+    $scope.planJsonDownloadUrl = window.URL.createObjectURL(blob);
+  }
+
+  updateDownloadPart();
 
   $scope.uploadPlanJson = function() {
-    alert('lol');
+    $scope.uploadState = null;
+    $scope.uploadFeedbackMessage = null;
+
+    try {
+      var newPlan = JSON.parse($scope.newPlanJson);
+      
+      $localStorage.plan = newPlan;
+      updateDownloadPart();
+
+      $scope.uploadState = 'success';
+      $scope.uploadFeedbackMessage = 'Plan successfully uploaded.';
+    } catch(e) {
+      $scope.uploadState = 'error';
+      $scope.uploadFeedbackMessage = 'Not a valid JSON object.';
+    }
   }
+
+  $scope.fileSelected = function(evt) {
+    $scope.$apply(function() {
+      $scope.uploadState = null;
+      $scope.uploadFeedbackMessage = null;
+
+      var file = evt.target.files[0];
+
+      if(file.size > 10000) {
+        $scope.uploadState = 'error';
+        $scope.uploadFeedbackMessage = 'No files above 10 kB supported.';
+      } else {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $scope.$apply(function() {
+            $scope.newPlanJson = e.target.result;
+          });
+        };
+
+        reader.readAsText(file);
+      }
+    });
+  }
+
+  document.getElementById('jsonFileUpload').addEventListener('change', $scope.fileSelected, false);
 });
 

@@ -159,6 +159,7 @@ module.controller('PlanController', function($scope, $modal, $log, $localStorage
 
     $scope.overviewSpecializations = [];
 
+    $scope.selectedSpecs = [];
     var sortedSpecs = $filter('orderDictBy')(handbook.specializations, $scope.specIdAsInt);
     $.each(sortedSpecs, function(specIdx, spec) {
       var specStats = {
@@ -193,12 +194,40 @@ module.controller('PlanController', function($scope, $modal, $log, $localStorage
 
       specStats.isInteresting = specStats.chosenEcts > 0;
 
+      if(specStats.ectsFromCompleteModules >= 15 && $scope.selectedSpecs.length < 2) {
+        $scope.selectedSpecs.push({
+          spec: specStats.spec,
+          ects: specStats.ectsFromCompleteModules
+        });
+      }
+
       $scope.overviewSpecializations.push(specStats);
     });
+
+    while($scope.selectedSpecs.length < 2) {
+      $scope.selectedSpecs.push({
+        spec: null,
+        ects: 0
+      });
+    }
+
+    var vfOverhead = 0;
+    $.each($scope.selectedSpecs, function(specIdx, spec) {
+      if(spec.ects > 15) {
+        vfOverhead += spec.ects - 15;
+      }
+    });
+    
+
+    $scope.ectsInFree = 0;
+    $scope.maxEctsInFree = 39 - vfOverhead
     
     var totalEcts = 0;
     $.each(modules, function(moduleId, module) {
       totalEcts += module.chosenEcts;
+      if(!$scope.plan.specializationForModules[moduleId]) {
+        $scope.ectsInFree += module.chosenEcts;
+      }
     });
     $scope.totalEcts = totalEcts;
   }

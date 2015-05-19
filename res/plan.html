@@ -33,6 +33,9 @@
           ng-init="idxCourse=$index; idCourse=idxModule + '-' + idxCourse;"
           class="list-group-item interesting-{{course.interesting}} in-other-module-{{course.inOtherModule}}"
           title="{{course.chosenModule}}">
+          <span class="pull-right">
+            <button class="btn btn-xs btn-default" ng-click="addPraktikum(course.data.name, course.data.ects)">P</button>
+          </span>
           <span class="badge"
             ng-class="{'progress-bar-info': course.inModule}">
             {{course.data.ects}}
@@ -173,7 +176,7 @@
           <strong>Praktika & Seminare</strong>
         </div>
         <div class="col-xs-6">
-          0 / min. 12
+          {{ectsPraktika}} / min. 12
         </div>
       </div>
       <div class="row">
@@ -182,11 +185,16 @@
           <strong>Praktika</strong>
         </div>
         <div class="col-xs-6">
-          0 / min. 6
+          {{ectsPraktika}} / min. 6
         </div>
       </div>
       <div class="row">
         <div class="col-xs-12">
+          <ul>
+            <li ng-repeat="praktikum in plan.praktika">
+              {{praktikum.ects}} - {{praktikum.name}}
+            </li>
+          </ul>
           <div class="btn btn-default btn-xs">Praktikum hinzufügen</div>
         </div>
       </div>

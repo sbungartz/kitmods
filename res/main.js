@@ -230,6 +230,11 @@ module.controller('PlanController', function($scope, $modal, $log, $localStorage
       }
     });
     $scope.totalEcts = totalEcts;
+
+    $scope.ectsPraktika = 0;
+    $.each($scope.plan.praktika, function(idx, praktikum) {
+      $scope.ectsPraktika += praktikum.ects;
+    });
   }
   $scope.$watch('handbook.courses', updateModuleList);
   $scope.$watch('plan.interestingCourses', updateModuleList);
@@ -263,9 +268,13 @@ module.controller('PlanController', function($scope, $modal, $log, $localStorage
       moduleForCourses: {'24114': 'IN4INADTP', '24619': 'IN4INAKR'},
     };
   }
+  if(!$scope.plan.praktika) {
+    $scope.plan.praktika = [];
+  }
   if(!$scope.plan.specializationForModules) {
     $scope.plan.specializationForModules = {};
   }
+
   $localStorage.plan = $scope.plan;
 
   $scope.planGetChosenModuleForCourse = function(courseId) {
@@ -296,6 +305,14 @@ module.controller('PlanController', function($scope, $modal, $log, $localStorage
     }, function () {
       $log.info('Modal dismissed at: ' + new Date());
     });
+  };
+
+  $scope.addPraktikum = function(name, ects) {
+    $scope.plan.praktika.push({
+      name: name,
+      ects: ects
+    });
+    updateModuleList();
   };
 });
 

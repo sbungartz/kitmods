@@ -1,3 +1,5 @@
+"use strict";
+
 var module = angular.module('kitmods', ['ui.bootstrap', 'ngRoute', 'ngStorage']);
 
 module.config(['$routeProvider', '$locationProvider', '$compileProvider', function($routeProvider, $locationProvider, $compileProvider) {

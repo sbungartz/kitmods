@@ -1,4 +1,6 @@
 # kitmods
+*Please note:* This was created in 2015, so it is probably quite obsolete now. The repository is therefore archived.
+
 Planning your Master program at Karlsruhe Institute of Technology (KIT) in Informatics involves choosing courses ("Lehrveranstaltungen"),
 placing them in modules ("Module") which form specializations ("Fächer").
 Your plan also has to comply with a veriety of constraints.
